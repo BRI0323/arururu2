@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あるマスおめでとう！！</title>
+    <!-- BootstrapのCSSを追加 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff4081;
+            text-shadow: 2px 2px #ff80ab;
+        }
+        #output {
+            word-wrap: break-word;
+            font-size: 2rem;
+            color: #6200ea;
+            text-shadow: 1px 1px #bb86fc;
+        }
+        .btn-primary {
+            background-color: #6200ea;
+            border-color: #6200ea;
+            box-shadow: 0px 4px 15px rgba(98, 0, 234, 0.75);
+        }
+        .btn-secondary {
+            background-color: #ff4081;
+            border-color: #ff4081;
+            box-shadow: 0px 4px 15px rgba(255, 64, 129, 0.75);
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 10px solid #ff4081;
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body class="p-3">
+    <div class="container text-center">
+        <h1 class="mb-4">あるマス誕生日＆二連覇おめでとう！！</h1>
+        <div id="output" class="mb-3">あ</div>
+        <div class="button-container">
+            <button id="addBtn" class="btn btn-primary">追加</button>
+            <button id="resetBtn" class="btn btn-secondary">リセット</button>
+        </div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const addBtn = document.getElementById('addBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        let canAdd = true;
+
+        addBtn.addEventListener('click', () => {
+            if (!canAdd) return;
+
+            let random = Math.random();
+            let newText = '';
+
+            if (random < 0.94) { // 94%の確率で"る"を追加
+                newText = 'る';
+            } else if (random < 0.95) { // 1%の確率で"ゑ"を追加
+                newText = 'ゑ';
+            } else { // 5%の確率で"の腹踊り"や"のお願いマッスル"を追加
+                const phrases = ['の腹踊り', 'のお願いマッスル'];
+                newText = phrases[Math.floor(Math.random() * phrases.length)];
+                canAdd = false; // "の腹踊り"や"のお願いマッスル"が出たら追加を停止
+            }
+
+            output.textContent += newText;
+        });
+
+        resetBtn.addEventListener('click', () => {
+            output.textContent = 'あ';
+            canAdd = true; // リセット時に追加可能に戻す
+        });
+    </script>
+
+    <!-- BootstrapのJavaScriptを追加 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
