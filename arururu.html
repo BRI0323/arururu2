@@ -22,6 +22,11 @@
             color: #6200ea;
             text-shadow: 1px 1px #bb86fc;
         }
+        #score {
+            font-size: 2rem;
+            color: #ff5722;
+            margin-bottom: 20px;
+        }
         .btn-primary {
             background-color: #6200ea;
             border-color: #6200ea;
@@ -53,6 +58,7 @@
 <body class="p-3">
     <div class="container text-center">
         <h1 class="mb-4">あるマス誕生日＆二連覇おめでとう！！</h1>
+        <div id="score">スコア: 0</div>
         <div id="output" class="mb-3">あ</div>
         <div class="button-container">
             <button id="addBtn" class="btn btn-primary">追加</button>
@@ -62,10 +68,12 @@
 
     <script>
         const output = document.getElementById('output');
+        const scoreElement = document.getElementById('score');
         const addBtn = document.getElementById('addBtn');
         const resetBtn = document.getElementById('resetBtn');
         
         let canAdd = true;
+        let score = 0;
 
         addBtn.addEventListener('click', () => {
             if (!canAdd) return;
@@ -75,8 +83,10 @@
 
             if (random < 0.94) { // 94%の確率で"る"を追加
                 newText = 'る';
+                score += 1; // 1点追加
             } else if (random < 0.95) { // 1%の確率で"ゑ"を追加
                 newText = 'ゑ';
+                score += 10; // 10点追加
             } else { // 5%の確率で"の腹踊り"や"のお願いマッスル"を追加
                 const phrases = ['の腹踊り', 'のお願いマッスル'];
                 newText = phrases[Math.floor(Math.random() * phrases.length)];
@@ -84,10 +94,13 @@
             }
 
             output.textContent += newText;
+            scoreElement.textContent = `スコア: ${score}`;
         });
 
         resetBtn.addEventListener('click', () => {
             output.textContent = 'あ';
+            score = 0; // スコアをリセット
+            scoreElement.textContent = `スコア: ${score}`;
             canAdd = true; // リセット時に追加可能に戻す
         });
     </script>
